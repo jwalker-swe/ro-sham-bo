@@ -1,0 +1,66 @@
+html {
+    --font: 'Poppins', Helvetica, sans-serif;
+    --bg-color-001: #85A2A6;
+    --bg-color-002: #5C7073;
+    --bg-color-003: #263d40;
+    --bg-color-004: #143033;
+
+    --text-color-001: #dbdbdb;
+    --text-color-002: #ffffff;
+
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
+}
+
+body {
+    width: 100%;
+    height: 100%;
+
+    margin: 0;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    background-color: var(--bg-color-004);
+    color: var(--text-color-001);
+
+    font-family: var(--font);
+    font-size: 2rem;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+
+    width: 50%;
+
+    text-align: center;
+}
+
+.icon-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.icon {
+    width: 20%;
+    height: auto;
+}
+
+.play-button {
+    margin: 50px auto;
+    width: 100%;
+    height: 50px;
+
+    border-radius: 10px;
+    border-width: 0;
+}
+
+.play-button:hover {
+    cursor: pointer;
+    opacity: 0.5;
+}
+
