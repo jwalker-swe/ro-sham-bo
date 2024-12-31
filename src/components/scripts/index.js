@@ -7,7 +7,17 @@ const iconRock = document.querySelector("#iconRock");
 const iconPaper = document.querySelector("#iconPaper");
 const iconScissors = document.querySelector("#iconScissors");
 
+const footer = document.querySelector(".footer-container");
+const winTotal = document.querySelector("#win-total");
+const drawTotal = document.querySelector("#draw-total");
+const lossTotal = document.querySelector("#loss-total");
+
 let gameState = "start";
+let winStreak = 0;
+let lossStreak = 0;
+let draws = 0;
+
+winTotal.innerText = `${draws}`;
 
 // Create function to determine computer choice
 const cc = function() {
@@ -31,6 +41,7 @@ const dw = function(arg1, arg2) {
     }
 
     let results = rules[arg1][arg2];
+
     return results;
 }
 
@@ -58,6 +69,7 @@ const startGame = function() {
 
         // Update UI
         playButton.remove();
+        footer.classList.add('hidden');
         heading.innerText = 'MAKE YOUR SELECTION';
 
         iconRock.classList.add('icon-button');
@@ -70,6 +82,7 @@ const startGame = function() {
             iconRock.classList.remove('icon-button');
             iconPaper.remove();
             iconScissors.remove();
+            footer.classList.remove('hidden');
             
             // Set playerChoice variable
             playerChoice = 'rock';
@@ -77,6 +90,21 @@ const startGame = function() {
 
             // Update heading text
             heading.innerText = `${dw(playerChoice, computerChoice).toUpperCase()}`
+
+            // Update scores
+            if (heading.innerText.toLowerCase() === "you win") {
+                winStreak++;
+                winTotal.innerText = `${winStreak}`;
+                console.log(winStreak);
+            } if (heading.innerText.toLowerCase() === "you lose") {
+                loseStreak++;
+                lossTotal.innerText = `${loseStreak}`;
+                console.log(loseStreak);
+            } else {
+                draws++;
+                drawTotal.innerText = `${draws}`;
+                console.log(draws);
+            }
 
             // Add button to play again
             addPlayAgainButton();
@@ -86,6 +114,7 @@ const startGame = function() {
             iconPaper.classList.remove('icon-button');
             iconRock.remove();
             iconScissors.remove();
+            footer.classList.remove('hidden');
 
             // Set playerChoice variable
             playerChoice = 'paper';
@@ -93,6 +122,21 @@ const startGame = function() {
 
             // Update heading text
             heading.innerText = `${dw(playerChoice, computerChoice).toUpperCase()}`
+
+            // Update scores
+            if (heading.innerText.toLowerCase() === "you win") {
+                winStreak++;
+                winTotal.innerText = `${winStreak}`;
+                console.log(winStreak);
+            } if (heading.innerText.toLowerCase() === "you lose") {
+                loseStreak++;
+                lossTotal.innerText = `${loseStreak}`;
+                console.log(loseStreak);
+            } else {
+                draws++;
+                drawTotal.innerText = `${draws}`;
+                console.log(draws);
+            }
 
             // Add button to play again
             addPlayAgainButton();
@@ -102,6 +146,7 @@ const startGame = function() {
             iconScissors.classList.remove('icon-button');
             iconRock.remove();
             iconPaper.remove();
+            footer.classList.remove('hidden');
 
             // Set playerChoice variable
             playerChoice = 'scissors';
@@ -110,6 +155,21 @@ const startGame = function() {
             // Update heading text
             heading.innerText = `${dw(playerChoice, computerChoice).toUpperCase()}`
 
+            // Update scores
+            if (heading.innerText.toLowerCase() === "you win") {
+                winStreak++;
+                winTotal.innerText = `${winStreak}`;
+                console.log(winStreak);
+            } if (heading.innerText.toLowerCase() === "you lose") {
+                loseStreak++;
+                lossTotal.innerText = `${loseStreak}`;
+                console.log(loseStreak);
+            } else {
+                draws++;
+                drawTotal.innerText = `${draws}`;
+                console.log(draws);
+            }
+
             // Add button to play again
             addPlayAgainButton();
         });
@@ -117,4 +177,4 @@ const startGame = function() {
 }
 
 playButton.addEventListener('click', startGame); 
-playAgainButton.addEventListener('click', playAgain);
+//playAgainButton.addEventListener('click', playAgain);
