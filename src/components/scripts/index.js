@@ -22,9 +22,9 @@ const cc = function() {
 
 const dw = function(arg1, arg2) {
     rules = {
-        rock: {rock: 'draw', paper: 'lose', scissors: 'win'},
-        paper: {rock: 'win', paper: 'draw', scissors: 'lose'},
-        scissors: {rock: 'lose', paper: 'win', scissors: 'draw'}
+        rock: {rock: 'draw', paper: 'you lose', scissors: 'you win'},
+        paper: {rock: 'you win', paper: 'draw', scissors: 'you lose'},
+        scissors: {rock: 'you lose', paper: 'you win', scissors: 'draw'}
     }
 
     let results = rules[arg1][arg2];
@@ -53,7 +53,7 @@ const startGame = function() {
         playerChoice = 'rock';
         console.log(`You chose: ${playerChoice}`);
 
-        heading.innerText = `YOU ${dw(playerChoice, computerChoice).toUpperCase()}`
+        heading.innerText = `${dw(playerChoice, computerChoice).toUpperCase()}`
     });
     iconPaper.addEventListener('click', () => {
         iconPaper.classList.remove('icon-button');
@@ -63,7 +63,7 @@ const startGame = function() {
         playerChoice = 'paper';
         console.log(`You chose: ${playerChoice}`);
 
-        heading.innerText = `YOU ${dw(playerChoice, computerChoice).toUpperCase()}`
+        heading.innerText = `${dw(playerChoice, computerChoice).toUpperCase()}`
     });
     iconScissors.addEventListener('click', () => {
         iconScissors.classList.remove('icon-button');
@@ -73,7 +73,7 @@ const startGame = function() {
         playerChoice = 'scissors';
         console.log(`You chose: ${playerChoice}`);
 
-        heading.innerText = `YOU ${dw(playerChoice, computerChoice).toUpperCase()}`
+        heading.innerText = `${dw(playerChoice, computerChoice).toUpperCase()}`
     });
 }
 
