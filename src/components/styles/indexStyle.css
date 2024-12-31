@@ -57,6 +57,10 @@ body {
 
     border-radius: 10px;
     border-width: 0;
+
+    font-family: var(--font);
+    font-weight: 600;
+    color: var(--bg-color-004);
 }
 
 .button:hover {
