@@ -34,8 +34,10 @@ body {
     display: flex;
     flex-direction: column;
 
-    width: 50%;
+    text-align: center;
+}
 
+.title {
     text-align: center;
 }
 
@@ -52,7 +54,7 @@ body {
 
 .button {
     margin: 50px auto;
-    width: 100%;
+    width: 90%;
     height: 50px;
 
     border-radius: 10px;
