@@ -6,84 +6,75 @@ const iconRock = document.querySelector("#iconRock");
 const iconPaper = document.querySelector("#iconPaper");
 const iconScissors = document.querySelector("#iconScissors");
 
+
+
+const cc = function() {
+    let odds = Math.random();
+
+    if (odds < 0.33) {
+        return 'rock';
+    } if (odds >= 0.33 && odds < 0.66) {
+        return 'paper';
+    } else {
+        return 'scissors';
+    }
+}
+
+const dw = function(arg1, arg2) {
+    rules = {
+        rock: {rock: 'draw', paper: 'lose', scissors: 'win'},
+        paper: {rock: 'win', paper: 'draw', scissors: 'lose'},
+        scissors: {rock: 'lose', paper: 'win', scissors: 'draw'}
+    }
+
+    let results = rules[arg1][arg2];
+    return results;
+}
+
 const startGame = function() {
 
     //Declare variables used
-    let computerChoice;
-    let playerChoice;
+    let computerChoice = cc();
 
-    //Create and call function to change UI when playing begins
-    const playingUI = function () {
-        playButton.classList.add('hidden');
-        heading.innerText = 'MAKE YOUR SELECTION';
+    playButton.classList.add('hidden');
+    heading.innerText = 'MAKE YOUR SELECTION';
 
-        iconRock.classList.add('icon-button');
-        iconPaper.classList.add('icon-button');
-        iconScissors.classList.add('icon-button');
-    };
+    iconRock.classList.add('icon-button');
+    iconPaper.classList.add('icon-button');
+    iconScissors.classList.add('icon-button');
 
-    playingUI();
+    console.log(`Computer chose: ${computerChoice}`);
 
-    //Create and call function to generate the computer's choice
-    const cc = function() {
-        let odds = Math.random();
-        let choice;
+    iconRock.addEventListener('click', () => {
+        iconRock.classList.remove('icon-button');
+        iconPaper.remove();
+        iconScissors.remove();
+        
+        playerChoice = 'rock';
+        console.log(`You chose: ${playerChoice}`);
 
-        if (odds < 0.33) {
-            choice = 'rock';
-        } if (odds >= 0.33 && odds < 0.66) {
-            choice = 'paper';
-        } else {
-            choice = 'scissors';
-        }
-        return choice;
-    };
+        heading.innerText = `YOU ${dw(playerChoice, computerChoice).toUpperCase()}`
+    });
+    iconPaper.addEventListener('click', () => {
+        iconPaper.classList.remove('icon-button');
+        iconRock.remove();
+        iconScissors.remove();
 
-    computerChoice = cc();
-    console.log(`The computer chose ${computerChoice}`)
+        playerChoice = 'paper';
+        console.log(`You chose: ${playerChoice}`);
 
-    //Create and call function to determine player's choice
-    const pc = function() {
-        let choice;
+        heading.innerText = `YOU ${dw(playerChoice, computerChoice).toUpperCase()}`
+    });
+    iconScissors.addEventListener('click', () => {
+        iconScissors.classList.remove('icon-button');
+        iconRock.remove();
+        iconPaper.remove();
 
-        iconRock.addEventListener('click', () => {
-            choice = 'rock';
+        playerChoice = 'scissors';
+        console.log(`You chose: ${playerChoice}`);
 
-            iconPaper.remove();
-            iconScissors.remove();
-            iconRock.classList.remove('icon-button');
-            heading.innerText = `YOU CHOSE ${choice.toUpperCase()}`;
-
-            console.log(`You chose ${choice}`)
-        });
-        iconPaper.addEventListener('click', () => {
-            choice = 'paper';
-
-            iconRock.remove();
-            iconScissors.remove();
-            iconPaper.classList.remove('icon-button');
-            heading.innerText = `YOU CHOSE ${choice.toUpperCase()}`;
-
-            console.log(`You chose ${choice}`)
-        });
-        iconScissors.addEventListener('click', () => {
-            choice = 'scissors';
-
-            iconRock.remove();
-            iconPaper.remove();
-            iconScissors.classList.remove('icon-button');
-            heading.innerText = `YOU CHOSE ${choice.toUpperCase()}`;
-
-            console.log(`You chose ${choice}`)
-        })
-
-        return choice;
-    }
-
-    playerChoice = pc();
-
-    //Create and call function to determine the winner
-    
+        heading.innerText = `YOU ${dw(playerChoice, computerChoice).toUpperCase()}`
+    });
 }
 
 playButton.addEventListener('click', startGame); 
