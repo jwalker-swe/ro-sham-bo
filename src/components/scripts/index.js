@@ -1,18 +1,17 @@
 const heading = document.querySelector("#heading");
 const iconContainer = document.querySelector("#rps-icons");
 const playButton = document.querySelector("#play-button");
-const playAgainButton = document.querySelector("#play-again-button");
 
-const iconRock = document.querySelector("#iconRock");
-const iconPaper = document.querySelector("#iconPaper");
-const iconScissors = document.querySelector("#iconScissors");
+let iconRock = document.querySelector("#iconRock");
+let iconPaper = document.querySelector("#iconPaper");
+let iconScissors = document.querySelector("#iconScissors");
 
 const footer = document.querySelector(".footer-container");
 const winTotal = document.querySelector("#win-total");
 const drawTotal = document.querySelector("#draw-total");
 const lossTotal = document.querySelector("#loss-total");
 
-let gameState = "start";
+let gameState = "ready";
 let winStreak = 0;
 let lossStreak = 0;
 let draws = 0;
@@ -42,7 +41,22 @@ const dw = function(arg1, arg2) {
 
     let results = rules[arg1][arg2];
 
-    return results;
+    if (results === 'you win') {
+        winStreak++;
+        winTotal.innerText = winStreak.toString();
+    } 
+    
+    if (results === 'you lose') {
+        lossStreak++;
+        lossTotal.innerText = lossStreak.toString();
+    }
+
+    if (results === 'draw') {
+        draws++;
+        drawTotal.innerText = draws.toString();
+    }
+
+    return [results, winStreak, lossStreak, draws];
 }
 
 // Create function to add in a play again button after a game is played
@@ -55,28 +69,68 @@ const addPlayAgainButton = function() {
     playAgainButton.appendChild(playAgainContent);
     playAgainButton.classList.add('button');
     playAgainButton.id = "play-again-button";
+    return;
+}
+
+const reset = function() {
+    heading.innerText = 'MAKE YOUR SELECTION';
+
+    // Remove any existing icons
+    iconRock.remove();
+    iconPaper.remove();
+    iconScissors.remove();
+
+    // Create icons again
+    iconRock = document.createElement("img");
+    iconPaper = document.createElement("img");
+    iconScissors = document.createElement("img");
+
+    iconContainer.appendChild(iconRock);
+    iconContainer.appendChild(iconPaper);
+    iconContainer.appendChild(iconScissors);
+
+    // Set icon classes and ids
+    iconRock.classList.add('icon');
+    iconRock.classList.add('rock');
+    iconRock.id = 'iconRock';
+
+    iconPaper.classList.add('icon');
+    iconPaper.classList.add('paper');
+    iconPaper.id = 'iconPaper';
+    
+    iconScissors.classList.add('icon');
+    iconScissors.classList.add('scissors');
+    iconScissors.id = 'iconScissors';
+
+    // Set icon img src
+    iconRock.src = 'src/assets/imgs/icon-rock.png';
+    iconPaper.src = 'src/assets/imgs/icon-paper.png';
+    iconScissors.src = 'src/assets/imgs/icon-scissors.png';
+
+    resetButton.remove();
+    playGame();
 }
 
 // Create funciton to start game of rock paper scissors
-const startGame = function() {
-    
-    // Determine current game state, either start or reset. Start represents a game state in which we are ready to begin. Reset represents a game state in which the board needs to be reset.
-    if (gameState === "start") {
-        
-        // Declare variables used
-        let computerChoice = cc();
-        console.log(`Computer chose: ${computerChoice}`);
+const playGame = function() {
+    // Change gameState to playing
+    gameState = 'playing';
 
-        // Update UI
-        playButton.remove();
-        footer.classList.add('hidden');
-        heading.innerText = 'MAKE YOUR SELECTION';
+    // Declare variables used
+    let computerChoice = cc();
+    console.log(`Computer chose: ${computerChoice}`);
 
-        iconRock.classList.add('icon-button');
-        iconPaper.classList.add('icon-button');
-        iconScissors.classList.add('icon-button');
+    // Update UI
+    playButton.remove();
+    footer.classList.add('hidden');
+    heading.innerText = 'MAKE YOUR SELECTION';
 
-        // Determine if the player has chosen rock, paper, or scissors based on which icon is clicked
+    iconRock.classList.add('icon-button');
+    iconPaper.classList.add('icon-button');
+    iconScissors.classList.add('icon-button');
+
+    // Determine if the player has chosen rock, paper, or scissors based on which icon is clicked
+    if (gameState === 'playing') {
         iconRock.addEventListener('click', () => {
             // Update UI
             iconRock.classList.remove('icon-button');
@@ -87,27 +141,17 @@ const startGame = function() {
             // Set playerChoice variable
             playerChoice = 'rock';
             console.log(`You chose: ${playerChoice}`);
-
+    
             // Update heading text
-            heading.innerText = `${dw(playerChoice, computerChoice).toUpperCase()}`
-
-            // Update scores
-            if (heading.innerText.toLowerCase() === "you win") {
-                winStreak++;
-                winTotal.innerText = `${winStreak}`;
-                console.log(winStreak);
-            } if (heading.innerText.toLowerCase() === "you lose") {
-                loseStreak++;
-                lossTotal.innerText = `${loseStreak}`;
-                console.log(loseStreak);
-            } else {
-                draws++;
-                drawTotal.innerText = `${draws}`;
-                console.log(draws);
-            }
-
+            heading.innerText = `${dw(playerChoice, computerChoice)[0].toUpperCase()}`
+    
             // Add button to play again
             addPlayAgainButton();
+    
+            gameState = 'complete';
+            resetButton = document.querySelector('#play-again-button');
+            
+            resetButton.addEventListener('click', reset);
         });
         iconPaper.addEventListener('click', () => {
             // Update UI
@@ -115,31 +159,21 @@ const startGame = function() {
             iconRock.remove();
             iconScissors.remove();
             footer.classList.remove('hidden');
-
+    
             // Set playerChoice variable
             playerChoice = 'paper';
             console.log(`You chose: ${playerChoice}`);
-
+    
             // Update heading text
-            heading.innerText = `${dw(playerChoice, computerChoice).toUpperCase()}`
-
-            // Update scores
-            if (heading.innerText.toLowerCase() === "you win") {
-                winStreak++;
-                winTotal.innerText = `${winStreak}`;
-                console.log(winStreak);
-            } if (heading.innerText.toLowerCase() === "you lose") {
-                loseStreak++;
-                lossTotal.innerText = `${loseStreak}`;
-                console.log(loseStreak);
-            } else {
-                draws++;
-                drawTotal.innerText = `${draws}`;
-                console.log(draws);
-            }
-
+            heading.innerText = `${dw(playerChoice, computerChoice)[0].toUpperCase()}`
+    
             // Add button to play again
             addPlayAgainButton();
+    
+            gameState = 'complete';
+            resetButton = document.querySelector('#play-again-button');
+            
+            resetButton.addEventListener('click', reset);
         });
         iconScissors.addEventListener('click', () => {
             // Update UI
@@ -147,34 +181,27 @@ const startGame = function() {
             iconRock.remove();
             iconPaper.remove();
             footer.classList.remove('hidden');
-
+    
             // Set playerChoice variable
             playerChoice = 'scissors';
             console.log(`You chose: ${playerChoice}`);
-
+    
             // Update heading text
-            heading.innerText = `${dw(playerChoice, computerChoice).toUpperCase()}`
-
-            // Update scores
-            if (heading.innerText.toLowerCase() === "you win") {
-                winStreak++;
-                winTotal.innerText = `${winStreak}`;
-                console.log(winStreak);
-            } if (heading.innerText.toLowerCase() === "you lose") {
-                loseStreak++;
-                lossTotal.innerText = `${loseStreak}`;
-                console.log(loseStreak);
-            } else {
-                draws++;
-                drawTotal.innerText = `${draws}`;
-                console.log(draws);
-            }
-
+            heading.innerText = `${dw(playerChoice, computerChoice)[0].toUpperCase()}`
+    
             // Add button to play again
             addPlayAgainButton();
+    
+            gameState = 'complete';
+            resetButton = document.querySelector('#play-again-button');
+            
+            resetButton.addEventListener('click', reset);
         });
-    }
-}
+    };
+    return;
+};
 
-playButton.addEventListener('click', startGame); 
-//playAgainButton.addEventListener('click', playAgain);
+playButton.addEventListener('click', () => {
+    gameState = 'playing';
+    playGame();
+});
