@@ -131,7 +131,7 @@ const playGame = function() {
 
     // Determine if the player has chosen rock, paper, or scissors based on which icon is clicked
     if (gameState === 'playing') {
-        iconRock.addEventListener('click', () => {
+        iconRock.addEventListener('click', function eventHandler() {
             // Update UI
             iconRock.classList.remove('icon-button');
             iconPaper.remove();
@@ -152,8 +152,9 @@ const playGame = function() {
             resetButton = document.querySelector('#play-again-button');
             
             resetButton.addEventListener('click', reset);
+            iconRock.removeEventListener('click', eventHandler)
         });
-        iconPaper.addEventListener('click', () => {
+        iconPaper.addEventListener('click', function eventHandler() {
             // Update UI
             iconPaper.classList.remove('icon-button');
             iconRock.remove();
@@ -174,8 +175,9 @@ const playGame = function() {
             resetButton = document.querySelector('#play-again-button');
             
             resetButton.addEventListener('click', reset);
+            iconPaper.removeEventListener('click', eventHandler);
         });
-        iconScissors.addEventListener('click', () => {
+        iconScissors.addEventListener('click', function eventHandler() {
             // Update UI
             iconScissors.classList.remove('icon-button');
             iconRock.remove();
@@ -196,6 +198,7 @@ const playGame = function() {
             resetButton = document.querySelector('#play-again-button');
             
             resetButton.addEventListener('click', reset);
+            iconScissors.removeEventListener('click', eventHandler)
         });
     };
     return;
