@@ -11,12 +11,39 @@ const winTotal = document.querySelector("#win-total");
 const drawTotal = document.querySelector("#draw-total");
 const lossTotal = document.querySelector("#loss-total");
 
-let gameState = "ready";
-let winStreak = 0;
-let lossStreak = 0;
-let draws = 0;
+let previousWins = function() {
+    if (localStorage.getItem('totalWins') === null) {
+        return 0;
+    } else {
+        return localStorage.getItem('totalWins');
+    }
+}
 
-winTotal.innerText = `${draws}`;
+let previousDraws = function() {
+    if (localStorage.getItem('totalDraws') === null) {
+        return 0;
+    } else {
+        return localStorage.getItem('totalDraws');
+    }
+}
+
+let previousLosses = function() {
+    if (localStorage.getItem('totalLosses') === null) {
+        return 0;
+    } else {
+        return localStorage.getItem('totalLosses');
+    }
+}
+
+
+let gameState = "ready";
+let wins = previousWins();
+let losses = previousLosses();
+let draws = previousDraws();
+
+winTotal.innerText = `${wins}`;
+drawTotal.innerText = `${draws}`;
+lossTotal.innerText = `${losses}`;
 
 // Create function to determine computer choice
 const cc = function() {
@@ -42,21 +69,27 @@ const dw = function(arg1, arg2) {
     let results = rules[arg1][arg2];
 
     if (results === 'you win') {
-        winStreak++;
-        winTotal.innerText = winStreak.toString();
+        wins = previousWins();
+        wins++;
+        localStorage.setItem('totalWins', wins);
+        winTotal.innerText = wins.toString();
     } 
     
     if (results === 'you lose') {
-        lossStreak++;
-        lossTotal.innerText = lossStreak.toString();
+        losses = previousLosses();
+        losses++;
+        localStorage.setItem('totalLosses', losses);
+        lossTotal.innerText = losses.toString();
     }
 
     if (results === 'draw') {
+        draws = previousDraws();
         draws++;
+        localStorage.setItem('totalDraws', draws);
         drawTotal.innerText = draws.toString();
     }
 
-    return [results, winStreak, lossStreak, draws];
+    return [results, wins, losses, draws];
 }
 
 // Create function to add in a play again button after a game is played
