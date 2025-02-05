@@ -5,7 +5,6 @@
 ## Features
 
 - **Single-player Mode**: Play against the computer and test your luck!
-- **Two-player Mode**: Challenge a friend to a competitive game.
 - **Simple Interface**: Easy-to-use buttons to choose Rock, Paper, or Scissors.
 - **Score Tracker**: Keep track of your wins, losses, and draws.
 - **Responsive Design**: Fully optimized for both desktop and mobile devices.
