@@ -18,7 +18,7 @@
 
 ## Live Demo
 
-You can check out the live version of **Ro Sham Bo!** by clicking [here](https://prism-exe.github.io/ro-sham-bo/).
+You can check out the live version of **Ro Sham Bo!** by clicking [here](https://jwalker-swe.github.io/ro-sham-bo/).
 
 ## Installation
 
