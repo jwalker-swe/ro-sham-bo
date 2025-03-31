@@ -27,7 +27,7 @@ To get started with **Ro Sham Bo!**, follow these steps:
 1. Clone the repository to your local machine:
 
    ```bash
-   git clone https://github.com/PRISM-EXE/ro-sham-bo.git
+   git clone https://github.com/jwalker-swe/ro-sham-bo.git
 
 2. Navigate to the project directory:
 
