@@ -1,4 +1,4 @@
-# Ro Sham Bo!
+# Schoolhouse Games: Ro Sham Bo!
 
 **Ro Sham Bo!** is a fun and interactive implementation of the classic Rock, Paper, Scissors game. Challenge the computer or play with a friend and see who wins in this simple yet exciting game!
 
